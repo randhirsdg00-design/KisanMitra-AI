@@ -1,0 +1,70 @@
+# ==================================================
+# KisanMitra AI — Root Git Ignore Configuration
+# ==================================================
+
+# 1. Environment and Secrets Files (NEVER COMMIT)
+.env
+.env.*
+*.env
+backend/.env
+backend/.env.*
+*.local
+
+# Re-include safe example/template files only
+!.env.example
+!*.env.example
+!**/.env.example
+
+# 2. Firebase & GCP Service Account Credentials (CRITICAL)
+*firebase-adminsdk*.json
+serviceAccountKey.json
+firebase-service-account.json
+*.service-account.json
+*service_account*.json
+*serviceAccount*.json
+firebase-credentials.json
+gcp-credentials.json
+client_secrets.json
+
+# 3. Python Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+backend/venv/
+backend/.venv/
+env.bak/
+venv.bak/
+
+# 4. Local SQLite Databases
+*.db
+*.sqlite
+*.sqlite3
+kisanmitra.db
+backend/kisanmitra.db
+
+# 5. Python Bytecode, Caches & Testing Artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# 6. IDE / Editor Configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# 7. Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini

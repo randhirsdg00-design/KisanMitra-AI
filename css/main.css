@@ -1,0 +1,385 @@
+/* =========================================================
+   KisanMitra AI — Main Layout & Base Styles
+   Final Polish: Professional Responsive Architecture
+   ========================================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-body);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family);
+  color: var(--color-text);
+  line-height: 1.25;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+  touch-action: manipulation;
+}
+
+/* Accessible Focus States */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Centered Responsive Container (Max 1200px, Zero Horizontal Clipping) */
+.app-container {
+  width: 100%;
+  max-width: var(--container-max-w);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-16);
+  padding-right: var(--space-16);
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    padding-left: var(--space-24);
+    padding-right: var(--space-24);
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-container {
+    padding-left: var(--space-32);
+    padding-right: var(--space-32);
+  }
+}
+
+/* =========================================================
+   HEADER & NAVIGATION (60–64px Height, Clean & Prominent Brand)
+   ========================================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-xs);
+  width: 100%;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  gap: var(--space-16);
+}
+
+/* Brand (Slightly more prominent) */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  min-height: var(--touch-target-min);
+}
+
+.brand-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.brand-icon-wrap svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+.brand-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  white-space: nowrap;
+}
+
+.brand-title span {
+  color: var(--color-primary);
+}
+
+/* Desktop Navigation (14px font, clean & uncrowded) */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-nav);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+  min-height: var(--touch-target-min);
+}
+
+.nav-btn svg {
+  width: 17px;
+  height: 17px;
+  stroke-width: 2px;
+}
+
+.nav-btn:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-subtle);
+}
+
+.nav-btn.active {
+  color: var(--color-primary);
+  background: var(--color-primary-subtle);
+  font-weight: 600;
+}
+
+/* Header Right Actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--font-caption);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  min-height: var(--touch-target-min);
+  transition: all var(--transition-fast);
+}
+
+.lang-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.lang-btn:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text);
+  background: var(--color-surface-hover);
+}
+
+.profile-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: 6px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--font-caption);
+  font-weight: 600;
+  color: var(--color-text);
+  min-height: var(--touch-target-min);
+  transition: all var(--transition-fast);
+}
+
+.profile-btn svg {
+  width: 15px;
+  height: 15px;
+  color: var(--color-primary);
+}
+
+.profile-btn:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-surface-hover);
+}
+
+/* =========================================================
+   MOBILE BOTTOM NAVIGATION (Fixed, accessible)
+   ========================================================= */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height-mobile);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  z-index: 900;
+  box-shadow: 0 -2px 8px rgba(23, 32, 26, 0.05);
+}
+
+.mobile-bottom-nav-inner {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  height: 100%;
+  max-width: var(--container-max-w);
+  margin: 0 auto;
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  min-height: var(--touch-target-min);
+  transition: color var(--transition-fast);
+  background: transparent;
+}
+
+.mobile-nav-item svg {
+  width: 19px;
+  height: 19px;
+}
+
+.mobile-nav-item.active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* =========================================================
+   MAIN CONTENT VIEWPORT & BALANCED VERTICAL SPACING
+   ========================================================= */
+.main-content {
+  flex: 1;
+  padding-top: var(--space-24);
+  padding-bottom: var(--space-32); /* Balanced, removes excess space */
+  width: 100%;
+}
+
+/* Section Headings */
+.section-heading {
+  font-size: var(--font-section-heading);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-16);
+  letter-spacing: -0.01em;
+}
+
+/* Tab Panes */
+.tab-pane {
+  display: none;
+  width: 100%;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+/* Toast Container */
+.toast-container {
+  position: fixed;
+  bottom: var(--space-24);
+  right: var(--space-24);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  pointer-events: none;
+  max-width: 360px;
+}
+
+.toast {
+  pointer-events: auto;
+  background: var(--color-text);
+  color: #FFFFFF;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-secondary);
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--color-primary);
+}
+
+/* Mobile Breakpoint Rules */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-bottom-nav {
+    display: block;
+  }
+
+  .main-content {
+    padding-top: var(--space-20);
+    padding-bottom: 74px; /* Space for bottom nav */
+  }
+
+  .profile-btn span.name {
+    display: none;
+  }
+
+  .header-inner {
+    height: var(--header-height-mobile);
+  }
+}

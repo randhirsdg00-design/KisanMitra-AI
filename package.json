@@ -1,0 +1,25 @@
+{
+  "name": "kisanmitra-ai-frontend",
+  "version": "1.0.0",
+  "description": "KisanMitra AI — Production Agricultural Frontend Platform for Indian Farmers",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "start": "python server.py",
+    "dev": "python server.py",
+    "serve": "npx -y serve -l 8080 .",
+    "test": "python scratch/run_all_tests.py",
+    "test:auth": "python scratch/test_auth_flow.py",
+    "test:google": "python scratch/test_google_signin.py"
+  },
+  "keywords": [
+    "agriculture",
+    "farmer",
+    "crop-disease-detection",
+    "mandi-prices",
+    "kisanmitra",
+    "vanilla-js"
+  ],
+  "author": "KisanMitra AI Team",
+  "license": "MIT"
+}

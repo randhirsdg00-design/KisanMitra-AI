@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Antigravity IDE and scratch files
+scratch/
+.system_generated/
+*.log
+.DS_Store
+Thumbs.db

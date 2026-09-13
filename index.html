@@ -1,0 +1,2441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanMitra AI — Intelligent Agriculture Assistant</title>
+  <meta name="description" content="AI-powered crop disease diagnostics, conversational farming advisory, farm plot management, and agricultural schemes for farmers.">
+
+  <!-- Inter Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/chat.css">
+
+  <!-- Official Google Identity Services SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+  <!-- =========================================================
+       VIEW: LOGIN PAGE (Clean, Agriculture-Focused, Professional)
+       ========================================================= -->
+  <section class="login-page-view" id="view-login" aria-labelledby="login-welcome-title" style="display: none;">
+    <div class="login-card-container">
+      <!-- KisanMitra AI Brand -->
+      <div class="login-brand-header">
+        <div class="brand-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+        </div>
+        <div class="brand-title">KisanMitra <span>AI</span></div>
+      </div>
+
+      <!-- Welcome Headings -->
+      <div class="login-headings">
+        <h1 class="login-title" id="login-welcome-title">Welcome back</h1>
+        <p class="login-subtitle">Login to continue to your agriculture assistant</p>
+      </div>
+
+      <!-- General Error Alert -->
+      <div class="login-alert-banner" id="login-alert-banner" role="alert" aria-live="polite" style="display: none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="login-alert-text"></span>
+      </div>
+
+      <!-- Login Form -->
+      <form class="login-form" id="form-login" novalidate>
+        <!-- Mobile or Email Input -->
+        <div class="form-field-group">
+          <label for="login-identifier" class="field-label">Mobile Number or Email</label>
+          <div class="input-control-wrap">
+            <svg class="input-leading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input 
+              type="text" 
+              id="login-identifier" 
+              name="identifier" 
+              class="form-text-input" 
+              autocomplete="username" 
+              aria-describedby="identifier-error-msg"
+              required>
+          </div>
+          <div class="field-error-msg" id="identifier-error-msg" role="alert" aria-live="polite"></div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-field-group">
+          <label for="login-password" class="field-label">Password</label>
+          <div class="input-control-wrap">
+            <input 
+              type="password" 
+              id="login-password" 
+              name="password" 
+              class="form-text-input has-trailing-btn no-leading-icon" 
+              placeholder="Enter your password"
+              autocomplete="current-password" 
+              aria-describedby="password-error-msg"
+              required>
+            <button type="button" class="btn-toggle-pwd" id="btn-toggle-pwd" aria-label="Show password" title="Show password">
+              <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;" aria-hidden="true">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <div class="field-error-msg" id="password-error-msg" role="alert" aria-live="polite"></div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-login-cta" id="btn-login-submit">
+          <span>Login</span>
+        </button>
+
+        <!-- OR Divider -->
+        <div class="login-divider" role="separator" aria-label="or sign in with">
+          <span class="divider-line"></span>
+          <span class="divider-text">OR</span>
+          <span class="divider-line"></span>
+        </div>
+
+        <!-- Google Sign-In Option -->
+        <div class="google-auth-wrap" id="google-auth-wrap">
+          <!-- Official Google Identity Services mount container (for live GIS button rendering) -->
+          <div id="g_id_signin_mount" class="g-signin-mount"></div>
+
+          <!-- Integration-Ready Google Button -->
+          <button type="button" class="btn-google-signin" id="btn-google-signin" aria-label="Sign in with Google (Demo)">
+            <svg class="google-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.15C3.25 21.36 7.33 24 12 24z"/>
+              <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.26C.46 8.16 0 9.99 0 12s.46 3.84 1.26 5.42l4.02-3.15z"/>
+              <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.25 2.64 1.26 6.58l4.02 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+            </svg>
+            <span class="google-btn-text">Sign in with Google</span>
+            <span class="google-btn-tag">Demo</span>
+          </button>
+          <div class="google-notice-text" id="google-notice-text" role="status" aria-live="polite" style="display: none;">
+            Google Sign-In demo is not configured yet. A Google OAuth Client ID is required.
+          </div>
+        </div>
+
+        <!-- Secondary Links -->
+        <div class="login-links-row">
+          <button type="button" class="btn-link-action" id="btn-forgot-password">Forgot password?</button>
+        </div>
+
+        <div class="login-signup-row">
+          <span class="signup-text">Don't have an account?</span>
+          <button type="button" class="btn-create-account" id="btn-create-account">Create account</button>
+        </div>
+
+        <!-- Quick Demo Autofill Helper (clean, non-intrusive) -->
+        <div class="login-demo-helper">
+          <span>Demo quick test:</span>
+          <button type="button" class="btn-demo-fill" id="btn-demo-fill">Auto-fill Farmer Credentials</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SITE HEADER (Clean & Uncrowded)
+       ========================================================= -->
+  <header class="site-header">
+    <div class="app-container header-inner">
+      <!-- Brand Logo -->
+      <a class="brand" id="brand-logo" href="#home" aria-label="KisanMitra AI Home">
+        <div class="brand-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+        </div>
+        <div class="brand-title">KisanMitra <span>AI</span></div>
+      </a>
+
+      <!-- Desktop Navigation Links (Hidden on Mobile) -->
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li class="nav-item">
+            <button class="nav-btn active" data-tab="home" id="nav-home">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              <span class="label">Home</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-btn" data-tab="farm" id="nav-farm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 20h10"/>
+                <path d="M12 20V10"/>
+                <path d="M12 10a4 4 0 0 1-4-4 4 4 0 0 1 4 4z"/>
+                <path d="M12 10a4 4 0 0 0 4-4 4 4 0 0 0-4 4z"/>
+              </svg>
+              <span class="label">My Farm</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-btn" data-tab="history" id="nav-history">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+                <path d="M12 7v5l4 2"/>
+              </svg>
+              <span class="label">History</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-btn" data-tab="schemes" id="nav-schemes">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 21h18"/>
+                <path d="M4 18h16"/>
+                <path d="M6 18V9"/>
+                <path d="M10 18V9"/>
+                <path d="M14 18V9"/>
+                <path d="M18 18V9"/>
+                <path d="m12 2 10 5H2z"/>
+              </svg>
+              <span class="label">Schemes</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-btn" data-tab="mandi" id="nav-mandi">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+              <span class="label">Mandi Rates</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Utilities (Language & Profile) -->
+      <div class="header-actions">
+        <button class="lang-btn" id="btn-lang-toggle" aria-label="Switch Language to Hindi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+            <path d="M2 12h20"/>
+          </svg>
+          <span id="lang-btn-text">हिन्दी</span>
+        </button>
+
+        <button class="header-settings-btn" id="btn-header-settings" aria-label="Settings" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span class="settings-btn-label">Settings</span>
+        </button>
+
+        <div class="profile-btn" role="button" tabindex="0" aria-label="Farmer Profile: Rajesh Kumar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="name">Rajesh Kumar</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       MAIN CONTENT VIEWPORT
+       ========================================================= -->
+  <main class="main-content" id="main-content">
+    <div class="app-container">
+
+      <!-- =========================================================
+           TAB 1: HOME (Refined Professional Agriculture Layout)
+           ========================================================= -->
+      <div class="tab-pane active" id="tab-home">
+        
+        <!-- 1. Welcome Section (Balanced Typography: 28px Desktop / 24px Mobile) -->
+        <section class="greeting-section" aria-labelledby="farmer-greeting-title">
+          <div class="greeting-header">
+            <div>
+              <h1 class="greeting-title" id="farmer-greeting-title">
+                Good afternoon, Farmer 👋
+              </h1>
+              <p class="greeting-subtitle" id="farmer-greeting-sub">
+                Your intelligent agriculture assistant
+              </p>
+            </div>
+            <!-- Secondary Advisory Pill (Subtle, non-competing) -->
+            <div class="advisory-pill" role="status">
+              <span class="advisory-dot" aria-hidden="true"></span>
+              <span>Ludhiana, PB · Ideal Spraying Window</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Hero Section: "Check your crop" (Balanced Layout, AI Crop Analysis) -->
+        <section class="hero-scan-card" aria-labelledby="hero-title-text">
+          <div class="hero-scan-layout">
+            <div class="hero-scan-content">
+              <div class="hero-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/>
+                </svg>
+                <span>AI Crop Analysis</span>
+              </div>
+
+              <h2 class="hero-scan-title" id="hero-title-text">
+                Check your crop
+              </h2>
+              <p class="hero-scan-desc" id="hero-desc-text">
+                Upload a crop photo and get an AI-powered analysis with immediate biological and chemical treatment solutions.
+              </p>
+              
+              <div class="hero-cta-action">
+                <!-- Primary CTA: Prominent but Professional -->
+                <button class="btn-scan-primary" id="btn-hero-scan">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                    <circle cx="12" cy="13" r="3"/>
+                  </svg>
+                  <span>Scan Crop</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Side: Secondary Sample Detection Chips Panel (Balances the Right Side) -->
+            <div class="hero-sample-panel">
+              <div class="sample-panel-label">Or test with a sample:</div>
+              <div class="sample-chips-grid">
+                <button class="sample-chip" data-sample-id="sample-tomato">Tomato Blight</button>
+                <button class="sample-chip" data-sample-id="sample-wheat">Wheat Rust</button>
+                <button class="sample-chip" data-sample-id="sample-potato">Potato Blight</button>
+                <button class="sample-chip" data-sample-id="sample-cotton">Healthy Cotton</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Quick Actions (4 Clean ActionCards: 4 cols Desktop, 2 cols Mobile) -->
+        <section class="quick-actions-section" aria-labelledby="heading-quick-actions">
+          <h2 class="section-heading" id="heading-quick-actions">Quick Actions</h2>
+          <div class="quick-actions-grid">
+            
+            <!-- Card 1: AI Mitra -->
+            <div class="action-card" id="card-action-mitra" role="button" tabindex="0">
+              <div class="action-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/>
+                </svg>
+              </div>
+              <h3 class="action-card-title" id="action-mitra-title">AI Mitra</h3>
+              <p class="action-card-desc" id="action-mitra-desc">Ask a question about farming</p>
+            </div>
+
+            <!-- Card 2: My Farm -->
+            <div class="action-card" id="card-action-farm" role="button" tabindex="0">
+              <div class="action-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 20h10"/>
+                  <path d="M12 20V10"/>
+                  <path d="M12 10a4 4 0 0 1-4-4 4 4 0 0 1 4 4z"/>
+                  <path d="M12 10a4 4 0 0 0 4-4 4 4 0 0 0-4 4z"/>
+                </svg>
+              </div>
+              <h3 class="action-card-title" id="action-farm-title">My Farm</h3>
+              <p class="action-card-desc" id="action-farm-desc">Manage your farm</p>
+            </div>
+
+            <!-- Card 3: History -->
+            <div class="action-card" id="card-action-history" role="button" tabindex="0">
+              <div class="action-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                  <path d="M3 3v5h5"/>
+                  <path d="M12 7v5l4 2"/>
+                </svg>
+              </div>
+              <h3 class="action-card-title" id="action-history-title">History</h3>
+              <p class="action-card-desc" id="action-history-desc">View previous scans</p>
+            </div>
+
+            <!-- Card 4: Schemes -->
+            <div class="action-card" id="card-action-schemes" role="button" tabindex="0">
+              <div class="action-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 21h18"/>
+                  <path d="M4 18h16"/>
+                  <path d="M6 18V9"/>
+                  <path d="M10 18V9"/>
+                  <path d="M14 18V9"/>
+                  <path d="M18 18V9"/>
+                  <path d="m12 2 10 5H2z"/>
+                </svg>
+              </div>
+              <h3 class="action-card-title" id="action-schemes-title">Government Schemes</h3>
+              <p class="action-card-desc" id="action-schemes-desc">Explore farmer subsidies</p>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 4. Recent Activity (Compact List Rows + Empty State Support) -->
+        <section class="activity-section" aria-labelledby="heading-recent-activity">
+          <div class="section-header-flex">
+            <h2 class="section-heading" id="heading-recent-activity" style="margin-bottom: 0;">Recent Activity</h2>
+            <button class="btn-view-all" id="btn-view-all-activity">
+              <span>View all</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="activity-card-container" id="recent-activity-list" role="list">
+            <!-- Rendered dynamically by app.js with SVG icons -->
+          </div>
+        </section>
+
+        <!-- 5. Need Help? Callout Banner -->
+        <section class="need-help-section" aria-labelledby="need-help-title">
+          <div class="need-help-banner">
+            <div class="need-help-info">
+              <h3 id="need-help-title">Need help?</h3>
+              <p id="need-help-desc">Get instant answers about crops, weather, fertilizer doses, or government schemes from AI Mitra.</p>
+            </div>
+            <button class="btn-ask-mitra" id="btn-home-ask-mitra">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              <span>Ask AI Mitra</span>
+            </button>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- =========================================================
+           TAB 2: MY FARM
+           ========================================================= -->
+      <div class="tab-pane" id="tab-farm" aria-labelledby="farm-page-title">
+        <div class="farm-container">
+          
+          <!-- Farm Header & Action -->
+          <div class="farm-header-flex">
+            <div class="farm-title-group">
+              <div class="farm-title-row">
+                <h1 class="farm-title" id="farm-page-title">My Farm</h1>
+                <span class="farm-demo-badge" title="Sample farm records displayed for demonstration">DEMO DATA</span>
+              </div>
+              <p class="farm-subtitle">Manage your crops and farm information</p>
+            </div>
+            <button class="btn-farm-add-crop" id="btn-add-crop" type="button" aria-label="Add a new crop">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              <span>+ Add Crop</span>
+            </button>
+          </div>
+
+          <!-- Demo Advisory Banner -->
+          <div class="farm-demo-banner" role="status">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <span><strong>DEMO DATA:</strong> Showing sample farm records. You can add, edit, or remove crops to manage your actual farm.</span>
+          </div>
+
+          <!-- Farm Summary Section (4 Cards) -->
+          <section class="farm-summary-section" aria-label="Farm Overview Summary">
+            <div class="farm-summary-grid">
+              
+              <!-- Total Land -->
+              <div class="farm-summary-card">
+                <div class="summary-card-icon summary-icon-land" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 21h18"/>
+                    <path d="M19 21v-8a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v8"/>
+                    <path d="M9 11V3h6v8"/>
+                  </svg>
+                </div>
+                <div class="summary-card-content">
+                  <div class="summary-card-label">Total Land</div>
+                  <div class="summary-card-value" id="farm-summary-land">12.5 Acres</div>
+                  <div class="summary-card-sub" id="farm-summary-land-sub">Cultivated area</div>
+                </div>
+              </div>
+
+              <!-- Active Crops -->
+              <div class="farm-summary-card">
+                <div class="summary-card-icon summary-icon-crops" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                  </svg>
+                </div>
+                <div class="summary-card-content">
+                  <div class="summary-card-label">Active Crops</div>
+                  <div class="summary-card-value" id="farm-summary-crops">3 Crops</div>
+                  <div class="summary-card-sub" id="farm-summary-crops-sub">In field now</div>
+                </div>
+              </div>
+
+              <!-- Current Season -->
+              <div class="farm-summary-card">
+                <div class="summary-card-icon summary-icon-season" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4"/>
+                    <path d="M12 2v2"/>
+                    <path d="M12 20v2"/>
+                    <path d="m4.93 4.93 1.41 1.41"/>
+                    <path d="m17.66 17.66 1.41 1.41"/>
+                    <path d="M2 12h2"/>
+                    <path d="M20 12h2"/>
+                    <path d="m6.34 17.66-1.41 1.41"/>
+                    <path d="m19.07 4.93-1.41 1.41"/>
+                  </svg>
+                </div>
+                <div class="summary-card-content">
+                  <div class="summary-card-label">Current Season</div>
+                  <div class="summary-card-value" id="farm-summary-season">Rabi</div>
+                  <div class="summary-card-sub" id="farm-summary-season-sub">Winter sowing</div>
+                </div>
+              </div>
+
+              <!-- Farm Status -->
+              <div class="farm-summary-card">
+                <div class="summary-card-icon summary-icon-status" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                </div>
+                <div class="summary-card-content">
+                  <div class="summary-card-label">Farm Status</div>
+                  <div class="summary-card-value" id="farm-summary-status">Active</div>
+                  <div class="summary-card-sub" id="farm-summary-status-sub">Good crop health</div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- Crops Section -->
+          <section class="farm-crops-section" aria-labelledby="heading-my-crops">
+            <div class="farm-section-header">
+              <div class="crops-title-wrap">
+                <h2 class="section-heading" id="heading-my-crops">My Crops</h2>
+                <span class="crops-count-badge" id="crops-count-badge">3</span>
+              </div>
+              <button class="btn-link-add-crop" id="btn-link-add-crop" type="button">
+                + Add another crop
+              </button>
+            </div>
+
+            <!-- Dynamic Crop Cards Container -->
+            <div class="farm-crops-grid" id="farm-crops-container">
+              <!-- Rendered dynamically by farm.js -->
+            </div>
+
+            <!-- Empty State (Shown when no crops exist) -->
+            <div class="farm-empty-state" id="farm-empty-state" style="display: none;">
+              <div class="empty-state-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                </svg>
+              </div>
+              <h3 class="empty-state-title">No crops added yet</h3>
+              <p class="empty-state-desc">Add your first crop to start managing your farm.</p>
+              <button class="btn-farm-add-crop" id="btn-empty-add-crop" type="button">
+                <span>+ Add Crop</span>
+              </button>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- =========================================================
+           TAB 3: HISTORY (Professional, Transparent Crop Analyses Archive)
+           ========================================================= -->
+      <div class="tab-pane" id="tab-history" aria-labelledby="history-page-title">
+        <div class="history-container">
+          
+          <!-- History Header -->
+          <div class="history-header-flex">
+            <div class="history-title-group">
+              <div class="history-title-row">
+                <h1 class="history-title" id="history-page-title">History</h1>
+                <span class="history-demo-badge" title="Historical records include sample diagnostic records for demonstration">DEMO DATA</span>
+              </div>
+              <p class="history-subtitle">View your previous crop analyses</p>
+            </div>
+          </div>
+
+          <!-- Transparency Notice Banner -->
+          <div class="history-demo-banner" role="status">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <span><strong>DEMO HISTORY:</strong> Showing sample crop diagnostic analyses for demonstration. Saved scans from your current session will appear here.</span>
+          </div>
+
+          <!-- Search & Filter Controls -->
+          <div class="history-controls-row">
+            <div class="history-search-wrap">
+              <svg class="history-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input 
+                type="text" 
+                id="history-search-input" 
+                class="history-search-input" 
+                placeholder="Search by crop, disease, or pathogen..."
+                aria-label="Search previous crop analyses">
+            </div>
+
+            <div class="history-filter-bar" id="history-filter-pills" role="toolbar" aria-label="Filter analyses by severity">
+              <button class="filter-pill active" data-filter="all" type="button">All</button>
+              <button class="filter-pill" data-filter="severe" type="button">Severe</button>
+              <button class="filter-pill" data-filter="warning" type="button">Moderate</button>
+              <button class="filter-pill" data-filter="completed" type="button">Healthy</button>
+            </div>
+          </div>
+
+          <!-- Recent Analyses Section Header -->
+          <div class="history-section-header">
+            <div class="history-count-group">
+              <h2 class="section-heading" id="heading-recent-analyses" style="margin-bottom: 0;">Recent Analyses</h2>
+              <span class="history-count-badge" id="history-count-badge">4</span>
+            </div>
+          </div>
+
+          <!-- History Grid (Rendered dynamically by history.js) -->
+          <div class="history-cards-grid" id="history-grid" role="list">
+            <!-- Rendered dynamically by history.js -->
+          </div>
+
+          <!-- Empty State (Shown when no analyses exist or no search match) -->
+          <div class="history-empty-state" id="history-empty-state" style="display: none;">
+            <div class="empty-state-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                <circle cx="12" cy="13" r="3"/>
+              </svg>
+            </div>
+            <h3 class="empty-state-title" id="history-empty-title">No crop analyses yet</h3>
+            <p class="empty-state-desc" id="history-empty-desc">Your saved crop analyses will appear here.</p>
+            <button class="btn-history-scan" id="btn-history-empty-scan" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 16px; height: 16px;">
+                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                <circle cx="12" cy="13" r="3"/>
+              </svg>
+              <span>Scan Your Crop</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- =========================================================
+           TAB 4: GOVERNMENT SCHEMES
+           ========================================================= -->
+      <div class="tab-pane" id="tab-schemes" aria-labelledby="schemes-page-title">
+        <div class="schemes-container">
+          
+          <!-- Schemes Header -->
+          <div class="schemes-header-flex">
+            <div class="schemes-title-group">
+              <div class="schemes-title-row">
+                <h1 class="schemes-title" id="schemes-page-title">Government Schemes</h1>
+                <span class="schemes-demo-badge" title="Scheme information shown for demonstration. Verify on official portals.">DEMO DATA</span>
+              </div>
+              <p class="schemes-subtitle">Discover government schemes and support available for farmers</p>
+            </div>
+          </div>
+
+          <!-- Transparency Notice Banner -->
+          <div class="schemes-demo-banner" role="status">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <span><strong>DEMO DATA — </strong>Scheme information shown here is for interface demonstration. Verify current eligibility, benefits, deadlines, and application details on the official government portal before applying.</span>
+          </div>
+
+          <!-- Search & Filter Controls -->
+          <div class="schemes-controls-row">
+            <div class="schemes-search-wrap">
+              <svg class="schemes-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input 
+                type="text" 
+                id="schemes-search-input" 
+                class="schemes-search-input" 
+                placeholder="Search schemes by name, benefit, or objective..."
+                aria-label="Search government schemes">
+            </div>
+
+            <div class="schemes-filter-bar" id="schemes-filter-pills" role="toolbar" aria-label="Filter government schemes by category">
+              <button class="filter-pill active" data-filter="all" type="button">All</button>
+              <button class="filter-pill" data-filter="central" type="button">Central Govt</button>
+              <button class="filter-pill" data-filter="state" type="button">State Partnership</button>
+              <button class="filter-pill" data-filter="crop" type="button">Crop & Insurance</button>
+              <button class="filter-pill" data-filter="irrigation" type="button">Irrigation</button>
+              <button class="filter-pill" data-filter="equipment" type="button">Equipment</button>
+              <button class="filter-pill" data-filter="finance" type="button">Financial Support</button>
+            </div>
+          </div>
+
+          <!-- Section Header with Dynamic Count -->
+          <div class="schemes-section-header">
+            <div class="schemes-count-group">
+              <h2 class="section-heading" id="heading-available-schemes" style="margin-bottom: 0;">Available Schemes</h2>
+              <span class="schemes-count-badge" id="schemes-count-badge">6</span>
+            </div>
+          </div>
+
+          <!-- Schemes Grid (Rendered dynamically by schemes.js) -->
+          <div class="schemes-cards-grid" id="schemes-grid" role="list">
+            <!-- Rendered dynamically by schemes.js -->
+          </div>
+
+          <!-- Empty State (Shown when no search/filter matches exist) -->
+          <div class="schemes-empty-state" id="schemes-empty-state" style="display: none;">
+            <div class="empty-state-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+            </div>
+            <h3 class="empty-state-title" id="schemes-empty-title">No schemes found</h3>
+            <p class="empty-state-desc" id="schemes-empty-desc">Try adjusting your search keywords or filter selection.</p>
+            <button class="btn-schemes-reset" id="btn-schemes-reset" type="button">
+              <span>Reset Filters</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- =========================================================
+           TAB 5: SCAN PAGE (Dedicated Clean Crop Scanner)
+           ========================================================= -->
+      <div class="tab-pane" id="tab-scan" aria-labelledby="scan-page-title">
+        <div class="scan-page-container">
+          
+          <!-- Back Link / Breadcrumb -->
+          <div class="scan-nav-header">
+            <button class="btn-back-home" id="btn-scan-back-home" aria-label="Back to Home">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m15 18-6-6 6-6"/>
+              </svg>
+              <span>Back to Home</span>
+            </button>
+          </div>
+
+          <!-- Page Heading -->
+          <div class="scan-page-heading">
+            <h1 class="scan-title" id="scan-page-title">Scan your crop</h1>
+            <p class="scan-subtitle">Take or upload a clear photo of your crop</p>
+          </div>
+
+          <!-- Error Alert State (Icon + Text, accessible) -->
+          <div class="scan-error-card" id="scan-error-card" role="alert" aria-live="polite" style="display: none;">
+            <div class="scan-error-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <div class="scan-error-content">
+              <h3 class="scan-error-title" id="scan-error-title">Unsupported file</h3>
+              <p class="scan-error-desc" id="scan-error-desc">Please upload a JPG or PNG image.</p>
+            </div>
+            <button type="button" class="btn-close-error" id="btn-close-scan-error" aria-label="Dismiss error">&times;</button>
+          </div>
+
+          <!-- Main Upload Card -->
+          <section class="scan-main-card" id="scan-upload-card" aria-labelledby="upload-card-title">
+            <div class="upload-card-header">
+              <h2 class="upload-card-title" id="upload-card-title">Ready to check your crop?</h2>
+              <p class="upload-card-desc">Take a clear photo of the affected part of your plant.</p>
+            </div>
+
+            <!-- Primary and Secondary Actions -->
+            <div class="upload-actions-group">
+              <!-- Primary: Take Photo -->
+              <button type="button" class="btn-scan-action primary" id="btn-take-photo" aria-label="Take a photo of your crop">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                  <circle cx="12" cy="13" r="3"/>
+                </svg>
+                <span>Take Photo</span>
+              </button>
+              <input type="file" id="scan-camera-input" accept="image/jpeg,image/png,image/jpg" capture="environment" style="display: none;" aria-hidden="true">
+
+              <!-- Secondary: Upload from Gallery -->
+              <button type="button" class="btn-scan-action secondary" id="btn-upload-gallery" aria-label="Upload crop photo from gallery">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                  <circle cx="9" cy="9" r="2"/>
+                  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                </svg>
+                <span>Upload from Gallery</span>
+              </button>
+              <input type="file" id="scan-gallery-input" accept="image/jpeg,image/png,image/jpg" style="display: none;" aria-hidden="true">
+            </div>
+
+            <!-- Desktop Drag & Drop Area (Hidden on Mobile) -->
+            <div class="desktop-dropzone" id="desktop-dropzone" role="region" aria-label="Drag and drop image upload zone">
+              <div class="dropzone-inner">
+                <svg class="dropzone-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <div class="dropzone-text">Drag &amp; drop your image here</div>
+                <div class="dropzone-sub">or click to browse files</div>
+              </div>
+            </div>
+
+            <!-- Quick Demo Samples Selector for easy evaluation -->
+            <div class="scan-demo-samples">
+              <span class="demo-samples-label">Or test with a sample crop photo:</span>
+              <div class="demo-samples-chips">
+                <button type="button" class="demo-chip" data-crop="Tomato leaf" data-src="assets/samples/tomato_early_blight.jpg" data-size="800348">Tomato Leaf (0.8 MB)</button>
+                <button type="button" class="demo-chip" data-crop="Wheat leaf" data-src="assets/samples/wheat_leaf_rust.jpg" data-size="745115">Wheat Leaf (0.7 MB)</button>
+                <button type="button" class="demo-chip" data-crop="Potato leaf" data-src="assets/samples/potato_late_blight.jpg" data-size="842757">Potato Leaf (0.8 MB)</button>
+                <button type="button" class="demo-chip" data-crop="Cotton leaf" data-src="assets/samples/healthy_cotton_leaf.jpg" data-size="889378">Cotton Leaf (0.9 MB)</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Photo Preview Card (Shown after valid image is selected) -->
+          <section class="scan-preview-card" id="scan-preview-card" aria-labelledby="preview-heading" style="display: none;">
+            <div class="preview-header">
+              <div class="preview-badge-row">
+                <span class="preview-ready-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Photo ready</span>
+                </span>
+              </div>
+              <h2 class="preview-title" id="preview-heading">Your crop photo has been added.</h2>
+            </div>
+
+            <div class="preview-body">
+              <div class="preview-img-container">
+                <img src="" alt="Selected crop leaf preview" id="preview-img" class="preview-img">
+              </div>
+              
+              <div class="preview-meta-info">
+                <div class="meta-label-crop" id="preview-meta-crop">Tomato leaf</div>
+                <div class="meta-label-specs" id="preview-meta-specs">2.4 MB · JPG</div>
+              </div>
+            </div>
+
+            <div class="preview-actions-row">
+              <button type="button" class="btn-scan-action secondary" id="btn-choose-another">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                  <path d="M3 3v5h5"/>
+                </svg>
+                <span>Choose Another</span>
+              </button>
+
+              <button type="button" class="btn-scan-action primary" id="btn-analyze-crop">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/>
+                </svg>
+                <span>Analyze Crop</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- Analyzing State Card (Shown when Analyze Crop is clicked) -->
+          <section class="scan-analyzing-card" id="scan-analyzing-card" aria-live="polite" style="display: none;">
+            <div class="analyzing-spinner-wrap">
+              <div class="analyzing-spinner" aria-hidden="true"></div>
+            </div>
+
+            <div class="analyzing-headings">
+              <h2 class="analyzing-title">Analyzing your crop...</h2>
+              <p class="analyzing-subtitle">Checking the image for visible crop symptoms.</p>
+            </div>
+
+            <!-- 3-Step Progress Indicators -->
+            <div class="analyzing-steps" id="analyzing-steps">
+              <div class="progress-step-item" id="step-1" data-status="pending">
+                <div class="step-indicator">
+                  <span class="step-number">1</span>
+                  <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div class="step-label">Preparing image</div>
+              </div>
+
+              <div class="progress-step-item" id="step-2" data-status="pending">
+                <div class="step-indicator">
+                  <span class="step-number">2</span>
+                  <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div class="step-label">Checking crop</div>
+              </div>
+
+              <div class="progress-step-item" id="step-3" data-status="pending">
+                <div class="step-indicator">
+                  <span class="step-number">3</span>
+                  <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div class="step-label">Analyzing visible symptoms</div>
+              </div>
+             <!-- Completed notice -->
+            <div class="analyzing-complete-box" id="analyzing-complete-box" style="display: none;">
+              <div class="complete-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <span>Analysis complete</span>
+              </div>
+              <p class="complete-note">Visible symptoms checked. Opening your crop analysis result...</p>
+              
+              <div class="complete-actions-row">
+                <button type="button" class="btn-scan-action secondary" id="btn-scan-reset">
+                  <span>Scan Another Crop</span>
+                </button>
+                <button type="button" class="btn-scan-action primary" id="btn-view-scan-result">
+                  <span>View Result &rarr;</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tips for a Better Analysis Section -->
+          <section class="scan-tips-section" aria-labelledby="tips-section-heading">
+            <div class="tips-section-header">
+              <h2 class="tips-heading" id="tips-section-heading">Tips for a better analysis</h2>
+              <div class="tips-format-badge">Supported: JPG, PNG · Maximum 10 MB</div>
+            </div>
+
+            <div class="tips-grid">
+              <!-- Tip 1: Good lighting -->
+              <div class="tip-card">
+                <div class="tip-icon-wrap" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                  </svg>
+                </div>
+                <div class="tip-content">
+                  <h3 class="tip-title">Good lighting</h3>
+                  <p class="tip-desc">Avoid dark photos</p>
+                </div>
+              </div>
+
+              <!-- Tip 2: Show affected area -->
+              <div class="tip-card">
+                <div class="tip-icon-wrap" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                  </svg>
+                </div>
+                <div class="tip-content">
+                  <h3 class="tip-title">Show affected area</h3>
+                  <p class="tip-desc">Capture the affected part</p>
+                </div>
+              </div>
+
+              <!-- Tip 3: Clear photo -->
+              <div class="tip-card">
+                <div class="tip-icon-wrap" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="12" r="3"/>
+                    <line x1="12" y1="2" x2="12" y2="5"/>
+                    <line x1="12" y1="19" x2="12" y2="22"/>
+                    <line x1="2" y1="12" x2="5" y2="12"/>
+                    <line x1="19" y1="12" x2="22" y2="12"/>
+                  </svg>
+                </div>
+                <div class="tip-content">
+                  <h3 class="tip-title">Clear photo</h3>
+                  <p class="tip-desc">Keep the crop in focus</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mobile Supported Label -->
+            <div class="tips-format-badge-mobile">
+              Supported: JPG, PNG · Maximum 10 MB
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- =========================================================
+           TAB: SCAN RESULT SCREEN (#tab-scan-result)
+           ========================================================= -->
+      <div class="tab-pane" id="tab-scan-result" aria-labelledby="result-screen-title" role="region">
+        <div class="scan-result-screen-container">
+          
+          <!-- Back Navigation Bar -->
+          <div class="result-nav-bar">
+            <button type="button" class="btn-result-back" id="btn-result-back-scan" aria-label="Back to scan page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+              </svg>
+              <span>Back to Scan</span>
+            </button>
+            <button type="button" class="btn-result-home" id="btn-result-nav-home" aria-label="Return to home page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              <span>Home</span>
+            </button>
+          </div>
+
+          <!-- Screen Header -->
+          <div class="result-header-bar">
+            <div class="result-header-content">
+              <h1 class="result-screen-title" id="result-screen-title">Crop Analysis Result</h1>
+              <p class="result-screen-subtitle">Here's what we found from your crop photo.</p>
+            </div>
+            <div class="result-mode-pill demo" id="result-mode-badge" role="status" aria-label="Result mode">
+              <span class="mode-dot" aria-hidden="true"></span>
+              <span id="result-mode-text">DEMO RESULT</span>
+            </div>
+          </div>
+
+          <!-- Error Alert State (Hidden by default, shown if analysis fails) -->
+          <div class="result-error-state" id="result-error-card" style="display: none;" role="alert">
+            <div class="error-state-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <div class="error-state-details">
+              <h2 class="error-state-title" id="result-error-title">Analysis unavailable</h2>
+              <p class="error-state-desc" id="result-error-desc">We couldn't analyze this photo right now.</p>
+              <div class="error-state-actions">
+                <button type="button" class="btn-result-action primary" id="btn-result-error-retry">
+                  <span>Try Again</span>
+                </button>
+                <button type="button" class="btn-result-action secondary" id="btn-result-error-scan-another">
+                  <span>Scan Another Photo</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Result Content (Two-column responsive layout) -->
+          <div class="result-main-grid" id="result-main-grid">
+            
+            <!-- LEFT COLUMN: Crop Photo Card & Demonstration Notice -->
+            <div class="result-col-left">
+              
+              <!-- Prominent Crop Photo Card -->
+              <div class="result-photo-card" id="result-photo-card">
+                <div class="photo-card-media">
+                  <img id="result-crop-img" src="" alt="Analyzed crop foliage photo" class="result-crop-image">
+                  <div class="photo-meta-overlay">
+                    <span class="photo-crop-tag" id="result-photo-crop-name">Crop leaf</span>
+                    <span class="photo-date-tag" id="result-photo-timestamp">13-09-2026</span>
+                  </div>
+                </div>
+                <div class="photo-card-info">
+                  <div class="photo-info-row">
+                    <span class="info-label">Analyzed Photo</span>
+                    <span class="info-value" id="result-photo-specs">0.8 MB · JPG</span>
+                  </div>
+                  <div class="photo-info-row">
+                    <span class="info-label">Analysis Status</span>
+                    <span class="info-value status-tag" id="result-photo-status">Analysis Complete</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Clear Demo / Backend Notice Box -->
+              <div class="result-demo-notice-box" id="result-demo-notice-box">
+                <div class="notice-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="16" x2="12" y2="12"/>
+                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                  </svg>
+                </div>
+                <div class="notice-body">
+                  <div class="notice-title" id="result-notice-heading">DEMO RESULT</div>
+                  <p class="notice-text" id="result-notice-message">
+                    This is a demonstration result. Connect the crop analysis backend for real AI diagnosis.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: Diagnostic Findings, Treatment, and Actions -->
+            <div class="result-col-right">
+
+              <!-- Possible Issue / Disease Card -->
+              <div class="result-card issue-card" id="result-issue-card">
+                <div class="result-card-header">
+                  <div class="card-icon-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                  </div>
+                  <div class="card-title-group">
+                    <span class="card-subtitle">Possible Issue</span>
+                    <h2 class="issue-title" id="result-disease-name">Early Blight</h2>
+                    <p class="issue-pathogen" id="result-pathogen-name">Pathogen: Alternaria solani</p>
+                  </div>
+                </div>
+
+                <!-- Confidence & Severity Metrics -->
+                <div class="issue-metrics-row" id="result-metrics-row">
+                  <div class="metric-badge" id="result-confidence-badge">
+                    <span class="metric-label">Confidence (Demo)</span>
+                    <span class="metric-val" id="result-confidence-val">96.8%</span>
+                  </div>
+                  <div class="metric-badge" id="result-severity-badge">
+                    <span class="metric-label">Severity</span>
+                    <span class="severity-pill severe" id="result-severity-val">Severe Infection</span>
+                  </div>
+                </div>
+
+                <div class="issue-desc-box" id="result-desc-box">
+                  <p id="result-disease-desc">Concentric target-like rings surrounded by chlorotic yellow halos on lower foliage, indicating active fungal spore germination.</p>
+                </div>
+              </div>
+
+              <!-- Observed Symptoms Checklist Card -->
+              <div class="result-card symptoms-card" id="result-symptoms-card">
+                <h3 class="result-card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  <span>Observed Symptoms</span>
+                </h3>
+                <ul class="symptoms-checklist" id="result-symptoms-list">
+                  <!-- Populated dynamically -->
+                </ul>
+              </div>
+
+              <!-- Recommended Treatment Card -->
+              <div class="result-card treatment-card" id="result-treatment-card">
+                <h3 class="result-card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 12"/>
+                  </svg>
+                  <span>Recommended Treatment</span>
+                </h3>
+
+                <div class="treatment-subsections">
+                  <!-- Organic Treatment -->
+                  <div class="treatment-sub-box organic" id="result-organic-box">
+                    <div class="sub-box-title">
+                      <span class="bullet-tag green">Organic</span>
+                      <span>Bio &amp; Cultural Remedies</span>
+                    </div>
+                    <ul class="treatment-list" id="result-organic-list">
+                      <!-- Populated dynamically -->
+                    </ul>
+                  </div>
+
+                  <!-- Chemical Treatment -->
+                  <div class="treatment-sub-box chemical" id="result-chemical-box">
+                    <div class="sub-box-title">
+                      <span class="bullet-tag amber">Chemical</span>
+                      <span>Targeted Agricultural Interventions</span>
+                    </div>
+                    <ul class="treatment-list" id="result-chemical-list">
+                      <!-- Populated dynamically -->
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Prevention & Care Tips Card -->
+              <div class="result-card prevention-card" id="result-prevention-card">
+                <h3 class="result-card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                  </svg>
+                  <span>Prevention &amp; Care Tips</span>
+                </h3>
+                <ul class="prevention-list" id="result-prevention-list">
+                  <!-- Populated dynamically -->
+                </ul>
+              </div>
+
+              <!-- Bottom Action Area -->
+              <div class="result-actions-card" id="result-actions-card">
+                <div class="result-actions-grid">
+                  <!-- Primary Action: Scan Again -->
+                  <button type="button" class="btn-result-primary" id="btn-result-scan-again">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="1 4 1 10 7 10"/>
+                      <polyline points="23 20 23 14 17 14"/>
+                      <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                    </svg>
+                    <span>Scan Again</span>
+                  </button>
+                  
+                  <!-- Secondary Action: Ask AI Mitra -->
+                  <button type="button" class="btn-result-secondary" id="btn-result-ask-mitra">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    <span>Ask AI Mitra</span>
+                  </button>
+
+                  <!-- History Action: Save to History -->
+                  <button type="button" class="btn-result-outline" id="btn-result-save-history">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                      <polyline points="17 21 17 13 7 13 7 21"/>
+                      <polyline points="7 3 7 8 15 8"/>
+                    </svg>
+                    <span id="btn-save-history-label">Save to History</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- =========================================================
+           TAB: AI MITRA DEDICATED CHAT SCREEN (#tab-ai-mitra)
+           ========================================================= -->
+      <div class="tab-pane" id="tab-ai-mitra" aria-labelledby="mitra-screen-title" role="region">
+        <div class="mitra-screen-container">
+          
+          <!-- Screen Header & Navigation Bar -->
+          <div class="mitra-screen-header">
+            <div class="mitra-header-left">
+              <button type="button" class="btn-mitra-back" id="btn-mitra-back-home" aria-label="Back to Home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="19" y1="12" x2="5" y2="12"/>
+                  <polyline points="12 19 5 12 12 5"/>
+                </svg>
+                <span>Home</span>
+              </button>
+              <div class="mitra-header-titles">
+                <h1 class="mitra-screen-title" id="mitra-screen-title">AI Mitra</h1>
+                <p class="mitra-screen-subtitle">Your agriculture assistant</p>
+              </div>
+            </div>
+
+            <!-- Mode Indicator: DEMO with Clear Disclosure -->
+            <div class="mitra-mode-container">
+              <div class="mitra-mode-pill demo" id="mitra-mode-badge" role="status" aria-label="AI Mitra mode">
+                <span class="mode-dot" aria-hidden="true"></span>
+                <span id="mitra-mode-text">DEMO</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- DEMO MODE Transparent Notice Banner -->
+          <div class="mitra-demo-banner" id="mitra-demo-banner" role="note">
+            <div class="demo-banner-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+            </div>
+            <div class="demo-banner-content">
+              <strong>DEMO MODE</strong> — AI Mitra demo responses are being shown. Connect an AI backend for live answers.
+            </div>
+          </div>
+
+          <!-- Contextual Inquiry Banner (e.g. from Scan Result or Mandi) -->
+          <div class="mitra-context-banner" id="mitra-context-banner" style="display: none;">
+            <div class="context-banner-text" id="mitra-context-text">Context: Tomato leaf · Early Blight</div>
+            <button type="button" class="btn-context-ask" id="btn-context-ask">Ask About This</button>
+            <button type="button" class="btn-context-dismiss" id="btn-context-dismiss" aria-label="Dismiss context">&times;</button>
+          </div>
+
+          <!-- Main Chat Card Container -->
+          <div class="mitra-chat-card">
+
+            <!-- Chat Message Stream -->
+            <div class="mitra-screen-messages" id="mitra-screen-messages" role="log" aria-live="polite">
+              <!-- Welcome Assistant Message is populated here and persisted in state -->
+            </div>
+
+            <!-- Typing Indicator (Hidden by default) -->
+            <div class="mitra-typing-indicator" id="mitra-screen-typing" style="display: none;" role="status" aria-live="polite">
+              <div class="typing-bubble">
+                <span class="typing-text">AI Mitra is thinking...</span>
+                <div class="typing-dots" aria-hidden="true">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Suggested Questions Container -->
+            <div class="mitra-suggestions-area" id="mitra-suggestions-area">
+              <div class="suggestions-label">Suggested questions:</div>
+              <div class="suggestions-chips-grid" id="mitra-suggestions-chips">
+                <button type="button" class="mitra-chip" data-prompt="Why are my crop leaves turning yellow?">
+                  <span class="chip-icon" aria-hidden="true">🍃</span>
+                  <span>Why are my crop leaves turning yellow?</span>
+                </button>
+                <button type="button" class="mitra-chip" data-prompt="What fertilizer should I use for wheat?">
+                  <span class="chip-icon" aria-hidden="true">🌾</span>
+                  <span>What fertilizer should I use for wheat?</span>
+                </button>
+                <button type="button" class="mitra-chip" data-prompt="What is today's mandi price?">
+                  <span class="chip-icon" aria-hidden="true">📈</span>
+                  <span>What is today's mandi price?</span>
+                </button>
+                <button type="button" class="mitra-chip" data-prompt="Tell me about government schemes">
+                  <span class="chip-icon" aria-hidden="true">🏛️</span>
+                  <span>Tell me about government schemes</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Chat Input Area (Sticky / Accessible at Bottom) -->
+            <form class="mitra-input-form" id="mitra-screen-form" onsubmit="return false;">
+              <div class="mitra-input-wrapper">
+                <input 
+                  type="text" 
+                  class="mitra-screen-input" 
+                  id="mitra-screen-input" 
+                  placeholder="Ask AI Mitra anything about farming..." 
+                  aria-label="Ask AI Mitra anything about farming"
+                  autocomplete="off"
+                >
+                <button type="button" class="btn-mitra-mic" id="btn-mitra-screen-mic" title="Voice query simulation" aria-label="Voice input">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="22"/>
+                  </svg>
+                </button>
+                <button type="submit" class="btn-mitra-send" id="btn-mitra-screen-send" title="Send question" aria-label="Send message">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                  </svg>
+                  <span class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">Send</span>
+                </button>
+              </div>
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- =========================================================
+           TAB 6: MANDI & MARKET PRICES (Live Backend Integration)
+           ========================================================= -->
+      <div class="tab-pane" id="tab-mandi" aria-labelledby="mandi-heading-title">
+        <div class="mandi-screen-container">
+          
+          <!-- Screen Header -->
+          <div class="mandi-header-bar">
+            <div>
+              <div class="mandi-title-wrap">
+                <h2 class="section-heading" id="mandi-heading-title" style="margin-bottom: var(--space-4);">Mandi &amp; Market Prices</h2>
+                <div class="mandi-status-badge offline" id="mandi-status-badge" role="status" aria-live="polite">
+                  <span class="status-indicator-dot"></span>
+                  <span>Connecting to API...</span>
+                </div>
+              </div>
+              <p class="mandi-header-sub">Real-time agricultural commodity prices, arrivals, and mandi market intelligence</p>
+            </div>
+
+            <div class="mandi-header-actions">
+              <button type="button" class="btn-api-config" id="btn-toggle-api-settings" title="Configure Backend API endpoint" aria-label="API Settings">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+                <span>API Config</span>
+              </button>
+
+              <button type="button" class="btn-refresh-prices" id="btn-mandi-refresh" aria-label="Refresh live prices">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                </svg>
+                <span>Refresh</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- API Endpoint Configuration Panel (Collapsible) -->
+          <div class="mandi-api-settings-box" id="mandi-api-settings-box" style="display: none;">
+            <div class="api-settings-inner">
+              <div class="api-settings-title">Backend API Endpoint</div>
+              <p class="api-settings-desc">Currently connected to <code>GET /api/mandi/prices</code>. You can test custom backend ports if running separately (e.g. <code>http://localhost:5000/api/mandi/prices</code>).</p>
+              <div class="api-input-row">
+                <input type="text" id="mandi-api-url-input" value="/api/mandi/prices" placeholder="/api/mandi/prices" aria-label="Mandi API URL">
+                <button type="button" class="btn-primary-action" id="btn-save-api-url" style="padding: 8px 16px; font-size: 13px;">Save &amp; Connect</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filter & Selection Card -->
+          <section class="mandi-filter-card" aria-label="Commodity and Market Filters">
+            <div class="filter-controls-grid">
+              <!-- 1. Commodity Selection -->
+              <div class="filter-field">
+                <label for="mandi-filter-commodity" class="filter-label">Commodity</label>
+                <select id="mandi-filter-commodity" class="filter-select">
+                  <option value="">All Commodities</option>
+                  <option value="Wheat">Wheat (गेहूं)</option>
+                  <option value="Paddy">Paddy / Rice (धान/चावल)</option>
+                  <option value="Mustard">Mustard (सरसों)</option>
+                  <option value="Cotton">Cotton (कपास)</option>
+                  <option value="Potato">Potato (आलू)</option>
+                  <option value="Tomato">Tomato (टमाटर)</option>
+                  <option value="Onion">Onion (प्याज)</option>
+                  <option value="Maize">Maize (मक्का)</option>
+                  <option value="Soybean">Soybean (सोयाबीन)</option>
+                  <option value="Gram">Gram / Chana (चना)</option>
+                </select>
+              </div>
+
+              <!-- 2. State Selection -->
+              <div class="filter-field">
+                <label for="mandi-filter-state" class="filter-label">State</label>
+                <select id="mandi-filter-state" class="filter-select">
+                  <option value="">All States</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Karnataka">Karnataka</option>
+                </select>
+              </div>
+
+              <!-- 3. District Selection (Cascading) -->
+              <div class="filter-field">
+                <label for="mandi-filter-district" class="filter-label">District</label>
+                <select id="mandi-filter-district" class="filter-select">
+                  <option value="">All Districts</option>
+                </select>
+              </div>
+
+              <!-- 4. Market / Mandi Filter -->
+              <div class="filter-field">
+                <label for="mandi-filter-market" class="filter-label">Market / Mandi</label>
+                <input type="text" id="mandi-filter-market" class="filter-input" placeholder="e.g. Khanna, Karnal, Indore">
+              </div>
+            </div>
+
+            <!-- Search & Action Row -->
+            <div class="filter-action-row">
+              <div class="filter-search-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-svg" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="text" id="mandi-filter-search" class="filter-search-input" placeholder="Search commodity, variety, or mandi name...">
+              </div>
+
+              <div class="filter-btns-group">
+                <button type="button" class="btn-filter-reset" id="btn-mandi-reset">Reset</button>
+                <button type="button" class="btn-filter-apply" id="btn-mandi-apply">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  </svg>
+                  <span>Fetch Latest Prices</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- UI State 1: Loading State -->
+          <div class="mandi-status-container" id="mandi-loading-state" role="status" style="display: none;">
+            <div class="mandi-spinner" aria-hidden="true"></div>
+            <div class="status-title">Fetching Live Mandi Prices...</div>
+            <p class="status-desc">Querying backend endpoint <code>GET /api/mandi/prices</code> for real-time agricultural arrivals and rates.</p>
+          </div>
+
+          <!-- UI State 2: Empty Results State -->
+          <div class="mandi-status-container" id="mandi-empty-state" role="status" style="display: none;">
+            <div class="status-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M16 16s-1.5-2-4-2-4 2-4 2"/>
+                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                <line x1="15" y1="9" x2="15.01" y2="9"/>
+              </svg>
+            </div>
+            <div class="status-title">No Mandi Prices Found</div>
+            <p class="status-desc">No market arrivals matched your current filter criteria. Try selecting another state, removing the district filter, or resetting search.</p>
+          </div>
+
+          <!-- UI State 3: API Error State -->
+          <div class="mandi-error-card" id="mandi-error-state" role="alert" style="display: none;">
+            <div class="error-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <div class="error-card-content">
+              <div class="error-card-title">Backend API Error</div>
+              <p class="error-card-desc" id="mandi-error-msg">Failed to connect to <code>GET /api/mandi/prices</code>.</p>
+              <div class="error-actions-group">
+                <button type="button" class="btn-retry-action" id="btn-mandi-retry">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                  <span>Retry Connection</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- UI State 4: Results Container (Metrics & Price Cards) -->
+          <div id="mandi-results-container" style="display: none;">
+            <!-- Summary Stats Bar -->
+            <div class="mandi-stats-summary" id="mandi-stats-summary">
+              <!-- Dynamically populated -->
+            </div>
+
+            <!-- Price Cards Grid -->
+            <div class="mandi-price-cards-grid" id="mandi-price-cards">
+              <!-- Dynamically populated from API response -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- =========================================================
+           TAB 9: FARMER PROFILE
+           ========================================================= -->
+      <div class="tab-pane" id="tab-profile" aria-labelledby="profile-user-name">
+        <div class="profile-container">
+
+          <!-- Profile Page Header Card -->
+          <div class="profile-header-card">
+            <div class="profile-avatar-initials" id="profile-avatar-initials" aria-hidden="true">RK</div>
+            <div class="profile-header-info">
+              <div class="profile-header-title-row">
+                <h1 class="profile-user-name" id="profile-user-name">Rajesh Kumar</h1>
+                <span class="profile-demo-badge" id="profile-demo-badge" title="Profile information shown here is sample data. Update it with your own details.">DEMO PROFILE</span>
+              </div>
+              <p class="profile-user-status" id="profile-user-status">Active · Verified Farmer</p>
+            </div>
+            <div class="profile-header-actions">
+              <button type="button" class="btn-primary-action" id="btn-edit-profile" aria-label="Edit farmer profile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 15px; height: 15px;" aria-hidden="true">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+                <span>Edit Profile</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Transparency Notice Banner -->
+          <div class="profile-demo-banner" id="profile-demo-banner" role="status">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <span><strong>DEMO PROFILE:</strong> Profile information shown here is sample data. Update it with your own details.</span>
+          </div>
+
+          <!-- Profile Details Section -->
+          <div class="profile-card profile-details-card">
+            <div class="profile-card-header">
+              <h2 class="profile-card-title">Personal & Contact Details</h2>
+              <span class="profile-card-desc">Supported account information</span>
+            </div>
+            <div class="profile-info-grid">
+              <div class="profile-field-group">
+                <span class="profile-field-label">Full Name</span>
+                <span class="profile-field-val" id="profile-info-name">Rajesh Kumar</span>
+              </div>
+              <div class="profile-field-group">
+                <span class="profile-field-label">Mobile Number</span>
+                <span class="profile-field-val" id="profile-info-phone">+91 98765 43210</span>
+              </div>
+              <div class="profile-field-group">
+                <span class="profile-field-label">Email Address</span>
+                <span class="profile-field-val" id="profile-info-email">Not provided</span>
+              </div>
+              <div class="profile-field-group">
+                <span class="profile-field-label">State</span>
+                <span class="profile-field-val" id="profile-info-state">Punjab</span>
+              </div>
+              <div class="profile-field-group">
+                <span class="profile-field-label">District</span>
+                <span class="profile-field-val" id="profile-info-district">Ludhiana</span>
+              </div>
+              <div class="profile-field-group">
+                <span class="profile-field-label">Preferred Language</span>
+                <span class="profile-field-val" id="profile-info-lang">English</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Farm Summary Section (Strictly sourced from state.farmPlots) -->
+          <div class="profile-card profile-farm-card">
+            <div class="profile-card-header">
+              <div>
+                <h2 class="profile-card-title">My Farm Summary</h2>
+                <span class="profile-card-desc">Current farm operations from your active plots</span>
+              </div>
+              <button type="button" class="btn-profile-view-farm" id="btn-profile-view-farm" aria-label="View My Farm">
+                <span>View My Farm</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+            <div class="profile-farm-grid">
+              <div class="profile-farm-stat">
+                <div class="profile-stat-val" id="profile-stat-crops">3</div>
+                <div class="profile-stat-lbl">Active Crops</div>
+              </div>
+              <div class="profile-farm-stat">
+                <div class="profile-stat-val" id="profile-stat-land">8.3 Acres</div>
+                <div class="profile-stat-lbl">Total Cultivated Land</div>
+              </div>
+              <div class="profile-farm-stat">
+                <div class="profile-stat-val" id="profile-stat-crops-list">Wheat, Tomato, Paddy</div>
+                <div class="profile-stat-lbl">Current Crops Grown</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Account Actions Section -->
+          <div class="profile-card profile-actions-card">
+            <div class="profile-card-header">
+              <h2 class="profile-card-title">Account & Preferences</h2>
+              <span class="profile-card-desc">Manage language and session settings</span>
+            </div>
+            <div class="profile-actions-list">
+              <div class="profile-action-row">
+                <div class="profile-action-meta">
+                  <div class="profile-action-title">Language Preference</div>
+                  <div class="profile-action-desc">Switch interface language between English and हिन्दी</div>
+                </div>
+                <button type="button" class="btn-action-outline" id="btn-profile-toggle-lang">
+                  <span>Switch Language</span>
+                </button>
+              </div>
+              <div class="profile-action-row">
+                <div class="profile-action-meta">
+                  <div class="profile-action-title">App Settings</div>
+                  <div class="profile-action-desc">Configure application preferences, data storage, and display</div>
+                </div>
+                <button type="button" class="btn-action-outline" id="btn-profile-go-settings" aria-label="Open App Settings">
+                  <span>Open Settings</span>
+                </button>
+              </div>
+              <div class="profile-action-row profile-logout-row">
+                <div class="profile-action-meta">
+                  <div class="profile-action-title">Log Out</div>
+                  <div class="profile-action-desc">Safely end your current session and return to the Login screen</div>
+                </div>
+                <button type="button" class="btn-danger-outline" id="btn-profile-logout" aria-label="Log out of KisanMitra AI">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;" aria-hidden="true">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                  </svg>
+                  <span>Log Out</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- =========================================================
+           TAB 10: SETTINGS & PREFERENCES
+           ========================================================= -->
+      <div class="tab-pane" id="tab-settings" aria-labelledby="settings-title">
+        <div class="settings-container">
+
+          <!-- Settings Top Nav / Header Card -->
+          <div class="settings-header-card">
+            <div class="settings-header-nav">
+              <button type="button" class="btn-back-link" id="btn-settings-back-home" aria-label="Return to Home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="19" y1="12" x2="5" y2="12"/>
+                  <polyline points="12 19 5 12 12 5"/>
+                </svg>
+                <span>Back to Home</span>
+              </button>
+            </div>
+            <div class="settings-header-main">
+              <div class="settings-header-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+              </div>
+              <div class="settings-header-text">
+                <h1 class="settings-title" id="settings-title">Settings &amp; Preferences</h1>
+                <p class="settings-subtitle">Manage your application language, display preferences, and session data.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Language Preference (Active & Functional) -->
+          <div class="settings-card">
+            <div class="settings-card-header">
+              <div class="settings-card-header-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                  <path d="M2 12h20"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="settings-card-title">Language / भाषा</h2>
+                <p class="settings-card-desc">Select your preferred interface language. Changes update the application immediately.</p>
+              </div>
+            </div>
+            <div class="settings-lang-selector" role="radiogroup" aria-label="Interface Language Selection">
+              <button type="button" class="settings-lang-option active" id="btn-settings-lang-en" role="radio" aria-checked="true" data-lang="en">
+                <span class="lang-code">EN</span>
+                <span class="lang-meta">
+                  <span class="lang-name">English</span>
+                  <span class="lang-native">Default</span>
+                </span>
+                <span class="lang-check" aria-hidden="true">✓</span>
+              </button>
+              <button type="button" class="settings-lang-option" id="btn-settings-lang-hi" role="radio" aria-checked="false" data-lang="hi">
+                <span class="lang-code">हि</span>
+                <span class="lang-meta">
+                  <span class="lang-name">हिन्दी</span>
+                  <span class="lang-native">Hindi</span>
+                </span>
+                <span class="lang-check" aria-hidden="true">✓</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Section 2: Appearance & Display (Transparent & Honest) -->
+          <div class="settings-card">
+            <div class="settings-card-header">
+              <div class="settings-card-header-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="4"/>
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="settings-card-title">Display &amp; Appearance</h2>
+                <p class="settings-card-desc">Visual mode and contrast configuration for field and daylight use.</p>
+              </div>
+            </div>
+            <div class="settings-rows-list">
+              <div class="settings-row">
+                <div class="settings-row-meta">
+                  <div class="settings-row-title">Active Color Theme</div>
+                  <div class="settings-row-desc">Optimized high-contrast agricultural palette (green &amp; natural white) for daylight visibility in farm fields.</div>
+                </div>
+                <div class="settings-badge-wrap">
+                  <span class="status-pill-badge active">Light Field Mode · Active</span>
+                </div>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-meta">
+                  <div class="settings-row-title">System Dark Theme</div>
+                  <div class="settings-row-desc">Dark mode palette for low-light evening use. Night contrast themes are planned for a subsequent release.</div>
+                </div>
+                <div class="settings-badge-wrap">
+                  <span class="status-pill-badge planned" title="Not connected in this release">Not Connected · Planned</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Privacy & Data Storage (Transparent Client-Side Explanation) -->
+          <div class="settings-card">
+            <div class="settings-card-header">
+              <div class="settings-card-header-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="settings-card-title">Privacy &amp; Data Storage</h2>
+                <p class="settings-card-desc">Information on how your farming data, scans, and session are stored.</p>
+              </div>
+            </div>
+            <div class="settings-notice-box">
+              <div class="notice-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="16" x2="12" y2="12"/>
+                  <line x1="12" y1="8" x2="12.01" y2="8"/>
+                </svg>
+                <span>Local Session Storage (Demo Environment)</span>
+              </div>
+              <p class="notice-text">
+                KisanMitra AI currently runs in a client-side demonstration architecture. Your active crop plots, scan histories, and recent activities reside within this browser session and in-memory application state. No personal farm photos or mobile numbers are sent to external cloud third parties.
+              </p>
+            </div>
+          </div>
+
+          <!-- Section 4: Account & Navigation Shortcuts -->
+          <div class="settings-card">
+            <div class="settings-card-header">
+              <div class="settings-card-header-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="settings-card-title">Account &amp; Shortcuts</h2>
+                <p class="settings-card-desc">Quickly jump to your profile, farm plots, or end your session.</p>
+              </div>
+            </div>
+            <div class="settings-rows-list">
+              <div class="settings-row">
+                <div class="settings-row-meta">
+                  <div class="settings-row-title">Farmer Profile</div>
+                  <div class="settings-row-desc">Review or edit your registered farmer credentials, contact number, and district.</div>
+                </div>
+                <button type="button" class="btn-action-outline" id="btn-settings-to-profile" aria-label="Go to Farmer Profile">
+                  <span>View Profile</span>
+                </button>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-meta">
+                  <div class="settings-row-title">My Farm Management</div>
+                  <div class="settings-row-desc">Inspect cultivated land acreage, crop health, and sowing dates.</div>
+                </div>
+                <button type="button" class="btn-action-outline" id="btn-settings-to-farm" aria-label="Go to My Farm">
+                  <span>View My Farm</span>
+                </button>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-meta">
+                  <div class="settings-row-title">Session Log Out</div>
+                  <div class="settings-row-desc">Safely end your current session and return to the login screen.</div>
+                </div>
+                <button type="button" class="btn-danger-outline" id="btn-settings-logout" aria-label="Log out of session">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;" aria-hidden="true">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                  </svg>
+                  <span>Log Out</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Danger Zone (Reset Demo Data) -->
+          <div class="settings-card settings-danger-card">
+            <div class="settings-card-header">
+              <div class="settings-card-header-icon danger" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="settings-card-title danger">Reset Demo Data</h2>
+                <p class="settings-card-desc">Restore sample farm plots, scan histories, and recent activities to initial state.</p>
+              </div>
+            </div>
+            <div class="settings-danger-content">
+              <p class="settings-danger-desc">
+                If you have modified sample crop records, added custom plots, or tested scans and want to restore the clean initial dataset, you can reset client-side application state back to defaults.
+              </p>
+              <button type="button" class="btn-danger-action" id="btn-settings-reset-data" aria-label="Reset demo application data">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;" aria-hidden="true">
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                  <path d="M3 3v5h5"/>
+                </svg>
+                <span>Reset Application Data</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- =========================================================
+       MOBILE BOTTOM NAVIGATION BAR (Compact, Clean, Fixed)
+       ========================================================= -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+    <div class="mobile-bottom-nav-inner">
+      <button class="mobile-nav-item active" data-tab="home" id="mob-nav-home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Home</span>
+      </button>
+
+      <button class="mobile-nav-item" data-tab="farm" id="mob-nav-farm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 20h10"/>
+          <path d="M12 20V10"/>
+          <path d="M12 10a4 4 0 0 1-4-4 4 4 0 0 1 4 4z"/>
+          <path d="M12 10a4 4 0 0 0 4-4 4 4 0 0 0-4 4z"/>
+        </svg>
+        <span>My Farm</span>
+      </button>
+
+      <button class="mobile-nav-item" data-tab="mandi" id="mob-nav-mandi">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+        <span>Mandi</span>
+      </button>
+
+      <button class="mobile-nav-item" data-tab="history" id="mob-nav-history">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+          <path d="M3 3v5h5"/>
+          <path d="M12 7v5l4 2"/>
+        </svg>
+        <span>History</span>
+      </button>
+
+      <button class="mobile-nav-item" data-tab="schemes" id="mob-nav-schemes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 21h18"/>
+          <path d="M4 18h16"/>
+          <path d="M6 18V9"/>
+          <path d="M10 18V9"/>
+          <path d="M14 18V9"/>
+          <path d="M18 18V9"/>
+          <path d="m12 2 10 5H2z"/>
+        </svg>
+        <span>Schemes</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- =========================================================
+       MODAL 1: CROP SCANNER & AI DIAGNOSTIC
+       ========================================================= -->
+  <div class="modal-overlay" id="scan-modal" role="dialog" aria-modal="true" aria-labelledby="scan-modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="scan-modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px; color: var(--color-primary);" aria-hidden="true">
+            <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+            <circle cx="12" cy="13" r="3"/>
+          </svg>
+          <span>AI Crop Pathology Scanner</span>
+        </h3>
+        <button class="btn-close-modal" id="btn-close-scan-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- State 1: Upload / Dropzone -->
+        <div id="scan-upload-state">
+          <div class="dropzone-container" id="dropzone" role="button" tabindex="0">
+            <div class="dropzone-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
+                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                <circle cx="12" cy="13" r="3"/>
+              </svg>
+            </div>
+            <div class="dropzone-title">Upload Crop Photo</div>
+            <p class="dropzone-desc">Drag & drop leaf photo here, or click to browse files from your device</p>
+            <input type="file" id="file-input" accept="image/*" style="display: none;">
+          </div>
+
+          <div class="sample-grid-label">Or test immediately with sample pathology leaves:</div>
+          <div class="sample-grid" id="modal-sample-grid">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- State 2: Radar Scanning Animation -->
+        <div class="scanning-state" id="scan-progress-state">
+          <div class="radar-preview-box">
+            <img src="assets/samples/tomato_early_blight.jpg" id="radar-img" alt="Leaf scanning" class="radar-img">
+            <div class="radar-laser"></div>
+          </div>
+          <div class="scan-progress-msg" id="scan-progress-msg">Analyzing crop leaf morphology...</div>
+          <div class="scan-progress-steps" id="scan-progress-steps">Step 1/4: Enhancing resolution & contrast</div>
+        </div>
+
+        <!-- State 3: Diagnosis Result View -->
+        <div class="result-state" id="scan-result-state">
+          <div class="result-hero">
+            <div class="result-img-box">
+              <img src="" id="result-img" alt="Diagnosis result" class="result-img">
+            </div>
+            <div class="result-info">
+              <h4 class="result-title" id="result-title">Tomato — Early Blight</h4>
+              <div class="result-scientific" id="result-scientific">Solanum lycopersicum • Alternaria solani</div>
+              <div class="result-stats-row">
+                <span class="status-badge severe" id="result-severity">Severe Infection</span>
+                <span class="confidence-meter" id="result-confidence">96.8% match</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Treatment Tabs -->
+          <div class="treatment-tabs">
+            <button class="treatment-tab-btn active" data-treatment="organic">Organic Remedies</button>
+            <button class="treatment-tab-btn" data-treatment="chemical">Chemical Treatment</button>
+            <button class="treatment-tab-btn" data-treatment="prevention">Prevention</button>
+          </div>
+
+          <div class="treatment-content-box" id="treatment-content">
+            <!-- Injected dynamically -->
+          </div>
+
+          <div class="result-actions-row">
+            <button class="btn-primary-action" id="btn-save-history">
+              Save to Farm History
+            </button>
+            <button class="btn-secondary-action" id="btn-ask-mitra-diagnosis">
+              Ask AI Mitra About This
+            </button>
+            <button class="btn-secondary-action" id="btn-scan-again">
+              Scan Another
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL: ADD / EDIT CROP MODAL
+       ========================================================= -->
+  <div class="modal-overlay" id="modal-crop-form" role="dialog" aria-modal="true" aria-labelledby="modal-crop-title">
+    <div class="modal-card farm-modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-crop-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 20px; height: 20px; color: var(--color-primary);">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+          <span id="modal-crop-heading-text">Add Crop</span>
+        </h3>
+        <button class="btn-close-modal" id="btn-close-crop-modal" type="button" aria-label="Close dialog">&times;</button>
+      </div>
+      <form class="modal-body crop-form" id="form-crop" novalidate>
+        <input type="hidden" id="crop-edit-id" value="">
+
+        <!-- General Error Alert -->
+        <div class="field-error-banner" id="crop-form-error" role="alert" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span id="crop-form-error-text">Please fill out all required fields correctly.</span>
+        </div>
+
+        <div class="form-row-2col">
+          <!-- Crop Name -->
+          <div class="form-field-group">
+            <label for="crop-input-name" class="field-label">Crop Name <span class="required-star">*</span></label>
+            <input type="text" id="crop-input-name" class="form-text-input" placeholder="e.g. Wheat, Tomato, Paddy, Cotton" required>
+            <div class="field-error-msg" id="crop-name-error" role="alert"></div>
+          </div>
+
+          <!-- Variety -->
+          <div class="form-field-group">
+            <label for="crop-input-variety" class="field-label">Variety</label>
+            <input type="text" id="crop-input-variety" class="form-text-input" placeholder="e.g. Sonalika, Hybrid Abhinav">
+          </div>
+        </div>
+
+        <div class="form-row-2col">
+          <!-- Area -->
+          <div class="form-field-group">
+            <label for="crop-input-area" class="field-label">Land Area <span class="required-star">*</span></label>
+            <input type="number" id="crop-input-area" class="form-text-input" step="0.1" min="0.01" placeholder="e.g. 2.5" required>
+            <div class="field-error-msg" id="crop-area-error" role="alert"></div>
+          </div>
+
+          <!-- Unit -->
+          <div class="form-field-group">
+            <label for="crop-input-unit" class="field-label">Unit <span class="required-star">*</span></label>
+            <select id="crop-input-unit" class="form-select-input">
+              <option value="Acres" selected>Acres</option>
+              <option value="Hectares">Hectares</option>
+              <option value="Bigha">Bigha</option>
+              <option value="Guntha">Guntha</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row-2col">
+          <!-- Season -->
+          <div class="form-field-group">
+            <label for="crop-input-season" class="field-label">Season</label>
+            <select id="crop-input-season" class="form-select-input">
+              <option value="Rabi" selected>Rabi (Winter)</option>
+              <option value="Kharif">Kharif (Monsoon)</option>
+              <option value="Zaid">Zaid (Summer)</option>
+              <option value="Year-round">Year-round</option>
+            </select>
+          </div>
+
+          <!-- Planting Date -->
+          <div class="form-field-group">
+            <label for="crop-input-date" class="field-label">Planting / Sowing Date</label>
+            <input type="date" id="crop-input-date" class="form-text-input">
+          </div>
+        </div>
+
+        <div class="form-row-2col">
+          <!-- Current Status -->
+          <div class="form-field-group">
+            <label for="crop-input-status" class="field-label">Current Status</label>
+            <select id="crop-input-status" class="form-select-input">
+              <option value="Growing" selected>Growing</option>
+              <option value="Sown / Germination">Sown / Germination</option>
+              <option value="Tillering">Tillering</option>
+              <option value="Flowering">Flowering</option>
+              <option value="Maturing">Maturing</option>
+              <option value="Ready for Harvest">Ready for Harvest</option>
+            </select>
+          </div>
+
+          <!-- Health Condition -->
+          <div class="form-field-group">
+            <label for="crop-input-health" class="field-label">Health Indicator</label>
+            <select id="crop-input-health" class="form-select-input">
+              <option value="Healthy (Optimal)" selected>Healthy (Optimal)</option>
+              <option value="Healthy (Normal)">Healthy (Normal)</option>
+              <option value="Moderate Concern">Moderate Concern</option>
+              <option value="Alert (Pest / Blight Spotted)">Alert (Pest / Blight Spotted)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-field-group">
+          <label for="crop-input-notes" class="field-label">Notes (Optional)</label>
+          <textarea id="crop-input-notes" class="form-textarea-input" rows="2" placeholder="e.g. Soil condition, irrigation schedules, fertilizer applied..."></textarea>
+        </div>
+
+        <!-- Modal Footer Actions -->
+        <div class="modal-actions-row">
+          <button type="button" class="btn-modal-cancel" id="btn-cancel-crop">Cancel</button>
+          <button type="submit" class="btn-modal-submit" id="btn-save-crop">Save Crop</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL: DELETE CROP CONFIRMATION
+       ========================================================= -->
+  <div class="modal-overlay" id="modal-delete-crop" role="dialog" aria-modal="true" aria-labelledby="delete-crop-modal-title">
+    <div class="modal-card delete-confirm-card">
+      <div class="delete-icon-wrap" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="3 6 5 6 21 6"/>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          <line x1="10" y1="11" x2="10" y2="17"/>
+          <line x1="14" y1="11" x2="14" y2="17"/>
+        </svg>
+      </div>
+      <h3 class="delete-title" id="delete-crop-modal-title">Remove this crop?</h3>
+      <p class="delete-desc">This crop will be removed from your farm list.</p>
+      
+      <div class="delete-target-preview" id="delete-crop-summary">
+        <!-- Injected dynamically: crop name & area -->
+      </div>
+
+      <div class="delete-actions-row">
+        <button type="button" class="btn-cancel-delete" id="btn-cancel-delete">Cancel</button>
+        <button type="button" class="btn-confirm-delete" id="btn-confirm-delete">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL: DELETE SCAN CONFIRMATION
+       ========================================================= -->
+  <div class="modal-overlay" id="modal-delete-scan" role="dialog" aria-modal="true" aria-labelledby="delete-scan-modal-title">
+    <div class="modal-card delete-confirm-card">
+      <div class="delete-icon-wrap" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="3 6 5 6 21 6"/>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          <line x1="10" y1="11" x2="10" y2="17"/>
+          <line x1="14" y1="11" x2="14" y2="17"/>
+        </svg>
+      </div>
+      <h3 class="delete-title" id="delete-scan-modal-title">Delete this scan analysis?</h3>
+      <p class="delete-desc">This record will be permanently removed from your history.</p>
+      
+      <div class="delete-target-preview" id="delete-scan-summary">
+        <!-- Injected dynamically: crop name & disease -->
+      </div>
+
+      <div class="delete-actions-row">
+        <button type="button" class="btn-cancel-delete" id="btn-cancel-delete-scan">Cancel</button>
+        <button type="button" class="btn-confirm-delete" id="btn-confirm-delete-scan">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 2: HISTORY SCAN DETAIL
+       ========================================================= -->
+  <div class="modal-overlay" id="modal-history-detail" role="dialog" aria-modal="true" aria-labelledby="history-detail-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="history-detail-title">Diagnostic Report Details</h3>
+        <button class="btn-close-modal" id="btn-close-history-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body" id="history-modal-body">
+        <!-- Rendered by history.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 3: SCHEME DETAIL & APPLICATION
+       ========================================================= -->
+  <div class="modal-overlay" id="modal-scheme-detail" role="dialog" aria-modal="true" aria-labelledby="scheme-detail-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="scheme-detail-title">Scheme Guidelines & Eligibility</h3>
+        <button class="btn-close-modal" id="btn-close-scheme-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body" id="scheme-modal-body">
+        <!-- Rendered by schemes.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 4: EDIT FARMER PROFILE
+       ========================================================= -->
+  <div class="modal-overlay" id="modal-edit-profile" role="dialog" aria-modal="true" aria-labelledby="edit-profile-modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="edit-profile-modal-title">Edit Farmer Profile</h3>
+        <button class="btn-close-modal" id="btn-close-profile-modal" aria-label="Close edit profile modal">&times;</button>
+      </div>
+      <form class="modal-body modal-form-body" id="form-edit-profile" novalidate>
+        <!-- Name -->
+        <div class="form-field-group">
+          <label for="edit-profile-name" class="field-label">Full Name <span class="required-star">*</span></label>
+          <input type="text" id="edit-profile-name" class="form-text-input" placeholder="e.g. Rajesh Kumar" required aria-required="true">
+          <span class="field-error-msg" id="error-edit-profile-name" style="display: none;"></span>
+        </div>
+
+        <!-- Phone -->
+        <div class="form-field-group">
+          <label for="edit-profile-phone" class="field-label">Mobile Number <span class="required-star">*</span></label>
+          <input type="tel" id="edit-profile-phone" class="form-text-input" placeholder="10-digit mobile number" maxlength="10" required aria-required="true">
+          <span class="field-error-msg" id="error-edit-profile-phone" style="display: none;"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="form-field-group">
+          <label for="edit-profile-email" class="field-label">Email Address (Optional)</label>
+          <input type="email" id="edit-profile-email" class="form-text-input" placeholder="e.g. farmer@example.com">
+          <span class="field-error-msg" id="error-edit-profile-email" style="display: none;"></span>
+        </div>
+
+        <!-- State & District in Row -->
+        <div class="form-row-two-col">
+          <div class="form-field-group">
+            <label for="edit-profile-state" class="field-label">State</label>
+            <input type="text" id="edit-profile-state" class="form-text-input" placeholder="e.g. Punjab">
+          </div>
+          <div class="form-field-group">
+            <label for="edit-profile-district" class="field-label">District</label>
+            <input type="text" id="edit-profile-district" class="form-text-input" placeholder="e.g. Ludhiana">
+          </div>
+        </div>
+
+        <!-- Preferred Language -->
+        <div class="form-field-group">
+          <label for="edit-profile-lang" class="field-label">Preferred Language</label>
+          <select id="edit-profile-lang" class="form-select-input">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+          </select>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="modal-actions-row">
+          <button type="button" class="btn-modal-cancel" id="btn-cancel-edit-profile">Cancel</button>
+          <button type="submit" class="btn-modal-submit" id="btn-save-edit-profile">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 5: RESET DEMO DATA CONFIRMATION
+       ========================================================= -->
+  <div class="modal-overlay" id="modal-reset-confirm" role="dialog" aria-modal="true" aria-labelledby="reset-modal-title" style="display: none;">
+    <div class="modal-container modal-sm">
+      <div class="modal-header">
+        <div class="modal-header-icon danger" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <h3 class="modal-title" id="reset-modal-title">Reset Demo Application Data?</h3>
+        <button class="btn-close-modal" id="btn-close-reset-modal" aria-label="Close reset confirmation modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-confirm-msg">
+          This action will restore all crop scans, sample plots, and chat history back to initial demonstration defaults.
+        </p>
+        <div class="modal-confirm-warning">
+          <strong>Note:</strong> Any in-memory modifications made during this browser session will be re-initialized. This cannot be reversed.
+        </div>
+      </div>
+      <div class="modal-actions-row">
+        <button type="button" class="btn-modal-cancel" id="btn-cancel-reset-data">Cancel</button>
+        <button type="button" class="btn-danger-confirm" id="btn-confirm-reset-data">Yes, Reset Data</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       AI MITRA: CONVERSATIONAL DRAWER & FLOATING BOT
+       ========================================================= -->
+  <button class="floating-chat-trigger" id="btn-floating-chat" title="Chat with AI Mitra" aria-label="Ask AI Mitra">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/>
+    </svg>
+    <span>Ask AI Mitra</span>
+  </button>
+
+  <div class="chat-drawer" id="chat-drawer" role="complementary" aria-label="AI Mitra Chat Assistant">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-bot-avatar" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="chat-bot-name">AI Mitra</div>
+          <div class="chat-bot-status"><span class="online-dot"></span> Online · Agronomist AI</div>
+        </div>
+      </div>
+      <button class="btn-chat-close" id="btn-close-chat" aria-label="Close Chat">&times;</button>
+    </div>
+
+    <!-- Message Stream -->
+    <div class="chat-messages" id="chat-messages">
+      <!-- Populated dynamically by chat.js -->
+    </div>
+
+    <!-- Starter Prompt Chips -->
+    <div class="chat-prompt-chips" id="chat-prompt-chips">
+      <button class="prompt-chip-btn" data-prompt="How to control early blight in tomatoes?">Tomato Blight</button>
+      <button class="prompt-chip-btn" data-prompt="What is the best urea dosage for wheat at 45 days?">Wheat Urea Dose</button>
+      <button class="prompt-chip-btn" data-prompt="How to check PM-KISAN installment status?">PM-KISAN Status</button>
+      <button class="prompt-chip-btn" data-prompt="What are today's mandi prices for wheat and mustard?">Mandi Rates</button>
+      <button class="prompt-chip-btn" data-prompt="What is the weather advisory for spraying?">Spray Weather</button>
+    </div>
+
+    <!-- Input Row -->
+    <div class="chat-input-row">
+      <input type="text" class="chat-input" id="chat-input-text" placeholder="Ask a question about farming..." aria-label="Chat input">
+      <button class="btn-chat-mic" id="btn-mic-chat" title="Simulate voice input" aria-label="Voice input">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" x2="12" y1="19" y2="22"/>
+        </svg>
+      </button>
+      <button class="btn-chat-send" id="btn-send-chat" title="Send message" aria-label="Send message">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="22" x2="11" y1="2" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Notifications -->
+  <div class="toast-container" id="toast-container" role="status" aria-live="polite"></div>
+
+  <!-- Main JavaScript Bootstrap -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
